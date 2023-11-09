@@ -1,0 +1,4 @@
+[16:02:07] [INFO ] [com.hthk.datacenter.action.DataCenterApplication:55] -- - Starting DataCenterApplication using Java 1.8.0_332 on HTHKSZ-CHENNING with PID 15664 (C:\Rock\Datas\IT\DEV\ws\WorkSpaceIDEAHTSFICC\data-center\target\classes started by chenning in C:\Rock\Datas\IT\DEV\ws\WorkSpaceIDEAHTSFICC\data-center)
+[16:02:07] [INFO ] [com.hthk.datacenter.action.DataCenterApplication:635] -- - No active profile set, falling back to default profiles: default
+[16:02:08] [INFO ] [com.hthk.datacenter.action.DataCenterApplication:61] -- - Started DataCenterApplication in 1.23 seconds (JVM running for 1.622)
+[16:02:08] [INFO ] [com.hthk.datacenter.action.DataCenterApplication:33] -- - DataCenter kick-off
