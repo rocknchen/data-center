@@ -18,9 +18,8 @@ public class DataCenterController {
     private final static Logger logger = LoggerFactory.getLogger(DataCenterController.class);
 
     @PostMapping(value = "/")
-    public HttpResponse<?> post(
-    ) {
-        return null;
+    public HttpResponse<?> post() {
+        return new HttpResponse();
     }
 
 }
