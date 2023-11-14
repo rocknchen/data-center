@@ -1,6 +1,7 @@
 package com.hthk.datacenter.controller;
 
 import com.hthk.fintech.model.web.http.HttpResponse;
+import com.hthk.fintech.utils.HttpResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,8 @@ public class DataCenterController {
 
     @PostMapping(value = "/")
     public HttpResponse<?> post() {
-        return new HttpResponse();
+        logger.info("{}", "test");
+        return HttpResponseUtils.success();
     }
 
 }
