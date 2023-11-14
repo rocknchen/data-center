@@ -1,5 +1,6 @@
 package com.hthk.datacenter.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.component.AbstractComponent;
 import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
@@ -25,9 +26,10 @@ public class DataCenterController extends AbstractComponent {
     }
 
     @PostMapping(value = "/data")
-    public HttpResponse<?> post(@RequestBody HttpRequest request) {
-        logger.info("{}", "post");
-        return HttpResponseUtils.success();
+    public HttpResponse<?> post(@RequestBody HttpRequest request) throws JsonProcessingException {
+        logger.info("{}", defaultObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(request));
+//        return HttpResponseUtils.success(dataQueryService.get(request));
+        return HttpResponseUtils.success(appInfoService.getVersion());
     }
 
 }
