@@ -1,2 +1,4 @@
 com\hthk\datacenter\action\DataCenterApplication.class
+com\hthk\datacenter\model\query\basic\AbstractTradeCriteria.class
+com\hthk\datacenter\model\query\TradeCriteriaCalypso.class
 com\hthk\datacenter\controller\DataCenterController.class
