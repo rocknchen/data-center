@@ -27,7 +27,7 @@ public class DataCenterController extends AbstractComponent {
 
     @PostMapping(value = "/data")
     public HttpResponse<?> post(@RequestBody HttpRequest request) throws JsonProcessingException {
-        logger.info("{}", defaultObjectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(request));
+        logger.info("{}", getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request));
 //        return HttpResponseUtils.success(dataQueryService.get(request));
         return HttpResponseUtils.success(appInfoService.getVersion());
     }
