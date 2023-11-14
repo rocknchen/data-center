@@ -8,7 +8,7 @@ import com.hthk.fintech.model.software.app.AppVersion;
 import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
 import com.hthk.fintech.utils.HttpResponseUtils;
-import com.hthk.fintech.web.http.serialize.HttpRequestDeserializer;
+import com.hthk.fintech.serialize.HttpRequestDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,6 @@ public class DataCenterController extends AbstractComponent {
 
     @PostMapping(value = "/data")
     public <T extends IDataCriteria> HttpResponse<?> post(
-            @JsonDeserialize(using = HttpRequestDeserializer.class)
             @RequestBody HttpRequest<T> request
     ) throws JsonProcessingException {
 
