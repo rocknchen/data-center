@@ -1,17 +1,12 @@
 package com.hthk.datacenter.controller;
 
 import com.hthk.fintech.component.AbstractComponent;
+import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
-import com.hthk.fintech.service.AppInfoService;
 import com.hthk.fintech.utils.HttpResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: Rock CHEN
@@ -29,8 +24,8 @@ public class DataCenterController extends AbstractComponent {
         return HttpResponseUtils.success(appInfoService.getVersion());
     }
 
-    @PostMapping(value = "/")
-    public HttpResponse<?> post() {
+    @PostMapping(value = "/data")
+    public HttpResponse<?> post(@RequestBody HttpRequest request) {
         logger.info("{}", "post");
         return HttpResponseUtils.success();
     }
