@@ -9,6 +9,7 @@ import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
 import com.hthk.fintech.utils.HttpResponseUtils;
 import com.hthk.fintech.serialize.HttpRequestDeserializer;
+import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,7 @@ public class DataCenterController extends AbstractComponent {
     ) throws JsonProcessingException {
 
         logger.info(LOG_WRAP, KW_HTTP_REQUEST, getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request));
-//        return HttpResponseUtils.success(dataQueryService.get(request));
-        return HttpResponseUtils.success(appInfoService.getVersion());
+        return HttpResponseUtils.success(dataQueryService.get(request));
     }
 
 }
