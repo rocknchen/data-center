@@ -17,11 +17,11 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 
 /**
  * @Author: Rock CHEN
- * @Date: 2023/11/14 21:59
+ * @Date: 2023/11/15 13:26
  */
 @DataCriteria(sourceName = CALYPSO, entityType = TRADE)
-@Service("tradeServiceCalypso")
-public class TradeServiceCalypsoImpl implements TradeService<DataCriteriaTrade> {
+@Service("tradeServiceCalypsoFile")
+public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTrade> {
 
     @Override
     public List<ITrade> get(DataCriteriaTrade criteria) {

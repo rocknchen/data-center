@@ -40,7 +40,7 @@ public class DataCenterController extends AbstractComponent {
     ) throws JsonProcessingException {
 
         logger.info(LOG_WRAP, KW_HTTP_REQUEST, getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request));
-        return HttpResponseUtils.success(dataQueryService.get(request));
+        return HttpResponseUtils.success(dqmService.get(request));
     }
 
 }
