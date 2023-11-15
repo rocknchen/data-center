@@ -16,19 +16,22 @@ import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
 import com.hthk.fintech.model.data.datacenter.query.SnapshotImageEnum;
 import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import com.hthk.fintech.model.trade.dto.TradeCSVDTO;
-import com.hthk.fintech.service.DataQueryManagerService;
 import com.hthk.fintech.service.basic.AbstractService;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.hthk.fintech.config.DataCenterStaticData.*;
@@ -68,6 +71,24 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
             throw new ServiceInternalException(e.getMessage(), e);
         }
         logger.info(LOG_DEFAULT, "trade count", iTradeList.size());
+
+        List<ITrade> filterTradeList = filter(iTradeList, criteria);
+
+        return filterTradeList;
+    }
+
+    private List<ITrade> filter(List<ITrade> iTradeList, DataCriteriaTrade criteria) {
+
+        String book = criteria.getBook();
+        if(StringUtils.hasText(book)) {
+            iTradeList = iTradeList.stream().filter(t->t.getBook().equals(book)).collect(Collectors.toList());
+        }
+
+//        String tradeDate = criteria.getTradeDate();
+//        if (StringUtils.hasText(tradeDate)) {
+//            iTradeList = iTradeList.stream().filter(t -> t. ().equals(book)).collect(Collectors.toList());
+//        }
+
         return iTradeList;
     }
 
