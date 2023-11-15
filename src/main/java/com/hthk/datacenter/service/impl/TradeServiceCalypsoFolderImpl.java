@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
@@ -80,14 +81,14 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
     private List<ITrade> filter(List<ITrade> iTradeList, DataCriteriaTrade criteria) {
 
         String book = criteria.getBook();
-        if(StringUtils.hasText(book)) {
-            iTradeList = iTradeList.stream().filter(t->t.getBook().equals(book)).collect(Collectors.toList());
+        if (StringUtils.hasText(book)) {
+            iTradeList = iTradeList.stream().filter(t -> t.getBook().equals(book)).collect(Collectors.toList());
         }
 
-//        String tradeDate = criteria.getTradeDate();
-//        if (StringUtils.hasText(tradeDate)) {
-//            iTradeList = iTradeList.stream().filter(t -> t. ().equals(book)).collect(Collectors.toList());
-//        }
+        LocalDate tradeDate = criteria.getTradeDate();
+        if (tradeDate != null) {
+            iTradeList = iTradeList.stream().filter(t -> t.getTradeDateTime().toLocalDate().compareTo(tradeDate) == 0).collect(Collectors.toList());
+        }
 
         return iTradeList;
     }
