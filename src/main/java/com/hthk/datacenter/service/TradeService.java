@@ -9,9 +9,9 @@ import java.util.List;
  * @Author: Rock CHEN
  * @Date: 2023/11/15 12:12
  */
-public interface TradeService {
+public interface TradeService<T extends IDataCriteriaTrade> {
 
-    List<ITrade> get(IDataCriteriaTrade criteria);
+    List<ITrade> get(T criteria);
 
     List<ITrade> upsert();
 
