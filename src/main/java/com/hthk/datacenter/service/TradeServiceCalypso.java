@@ -1,6 +1,6 @@
 package com.hthk.datacenter.service;
 
-import com.hthk.datacenter.model.query.TradeCriteriaCalypso;
+import com.hthk.calypsox.model.trade.datacenter.TradeCriteriaCalypso;
 import com.hthk.fintech.model.finance.Trade;
 
 import java.util.List;
