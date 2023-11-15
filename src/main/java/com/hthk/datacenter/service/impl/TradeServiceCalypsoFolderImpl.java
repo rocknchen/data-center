@@ -4,9 +4,11 @@ import com.hthk.calypsox.model.trade.ITrade;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.common.utils.CSVFileUtils;
 import com.hthk.common.utils.FileUtils;
+import com.hthk.datacenter.converter.DummyConverter;
 import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.collection.ComparatorFileNameLastDateASC;
 import com.hthk.fintech.config.AppConfig;
+import com.hthk.fintech.converter.IConverter;
 import com.hthk.fintech.exception.ServiceInternalException;
 import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
@@ -14,7 +16,9 @@ import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
 import com.hthk.fintech.model.data.datacenter.query.SnapshotImageEnum;
 import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import com.hthk.fintech.model.trade.dto.TradeCSVDTO;
+import com.hthk.fintech.service.DataQueryManagerService;
 import com.hthk.fintech.service.basic.AbstractService;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -63,6 +67,7 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
         } catch (IOException e) {
             throw new ServiceInternalException(e.getMessage(), e);
         }
+        logger.info(LOG_DEFAULT, "trade count", iTradeList.size());
         return iTradeList;
     }
 
@@ -84,22 +89,36 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
 
     private List<ITrade> loadTrade(List<File> sortedByDateList) throws IOException {
 
-        List<ITrade> allTradeList = new ArrayList<>();
+        Map<String, ITrade> allTradeMap = new HashedMap();
         Map<LocalDate, List<ITrade>> tradeMap = new HashMap<>();
         for (int i = 0; i < sortedByDateList.size(); i++) {
             File file = sortedByDateList.get(i);
             LocalDate date = FileUtils.getFileDate(file, BASIC_DATE_FORMAT);
             tradeMap.put(date, loadTrade(file));
         }
-//        List<ITrade> tradeList = loadTrade();
-//        Map<LocalDate, List<ITrade>>
-        return null;
+
+        List<LocalDate> dateList = tradeMap.keySet().stream().collect(Collectors.toList());
+        Collections.sort(dateList);
+
+        dateList.forEach(d -> {
+            List<ITrade> tradeList = tradeMap.get(d);
+            tradeList.forEach(t -> {
+                String tradeId = t.getId();
+                allTradeMap.put(tradeId, t);
+            });
+        });
+        return allTradeMap.values().stream().collect(Collectors.toList());
     }
 
     private List<ITrade> loadTrade(File file) throws IOException {
+
         List<TradeCSVDTO> tradeCSVList = CSVFileUtils.readCSV(file.getAbsolutePath(), TradeCSVDTO.class);
         logger.info("{}", tradeCSVList.size());
-        return null;
+        return tradeCSVList.stream().map(t -> getConverter(t).process(t)).collect(Collectors.toList());
+    }
+
+    private IConverter<TradeCSVDTO, ? extends ITrade> getConverter(TradeCSVDTO t) {
+        return new DummyConverter();
     }
 
     private File getTradeSrcFolder(AppConfig appConfig, String kwFolderNameTrade) throws ServiceInternalException {
