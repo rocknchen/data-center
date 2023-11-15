@@ -1,6 +1,6 @@
 com\hthk\datacenter\service\TradeService.class
 com\hthk\datacenter\action\DataCenterApplication.class
+com\hthk\datacenter\service\impl\TradeServiceCalypsoDBImpl.class
 com\hthk\datacenter\service\impl\TradeServiceCalypsoFileImpl.class
 com\hthk\datacenter\controller\DataCenterController.class
-com\hthk\datacenter\service\impl\TradeServiceCalypsoImpl.class
 com\hthk\datacenter\service\impl\DataQueryManagerDataCenterImpl.class

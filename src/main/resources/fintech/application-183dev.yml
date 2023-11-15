@@ -3,8 +3,8 @@ server:
   port: ${SERVER_PORT:10001}
 
 persistent:
-  type: FOLDER
-  srcPath: C:/Rock/Datas/Calypso/Persistence
+  type: FILE
+  folder: C:/Rock/Datas/Calypso/Persistence
 
 local:
   file:

@@ -2,6 +2,11 @@ package com.hthk.datacenter.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.config.AppConfig;
+import com.hthk.fintech.exception.ServiceException;
+import com.hthk.fintech.exception.ServiceInvalidException;
+import com.hthk.fintech.exception.ServiceNotSupportedException;
+import com.hthk.fintech.model.data.DataSourceFolder;
+import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.IDataSource;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.web.http.HttpRequest;
@@ -28,7 +33,7 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
     private final static Logger logger = LoggerFactory.getLogger(DataQueryManagerDataCenterImpl.class);
 
     @Override
-    public <R> R process(HttpRequest<? extends IDataCriteria> request) {
+    public <R> R process(HttpRequest<? extends IDataCriteria> request) throws ServiceInvalidException {
 
         IDataSource dataSource = getSource(appConfig, request);
         try {
@@ -43,8 +48,19 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
         return null;
     }
 
-    private IDataSource getSource(AppConfig appConfig, HttpRequest<? extends IDataCriteria> request) {
-        return null;
+    private IDataSource getSource(
+            AppConfig appConfig,
+            HttpRequest<? extends IDataCriteria> request
+    ) throws ServiceInvalidException {
+
+        DataSourceTypeEnum dataSourceType = appConfig.getDataSourceType();
+        switch (dataSourceType) {
+            case FOLDER:
+                String srcPath = appConfig.getDataSourcePath();
+                return new DataSourceFolder(srcPath);
+            default:
+                throw new ServiceInvalidException();
+        }
     }
 
 }

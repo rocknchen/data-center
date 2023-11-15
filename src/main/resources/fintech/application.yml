@@ -5,6 +5,10 @@ spring:
 app:
   version: 0.1.1
 
+dataSource:
+  type: FOLDER
+  path: C:/Rock/Datas/Calypso/Persistence/dataCenter
+
 logging:
   config: classpath:fintech/logback.xml
 
