@@ -1,6 +1,7 @@
 package com.hthk.datacenter.service.impl;
 
 import com.hthk.calypsox.model.trade.ITrade;
+import com.hthk.calypsox.model.trade.TradeResultSet;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.common.utils.CSVFileUtils;
 import com.hthk.common.utils.FileUtils;
@@ -53,7 +54,7 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
     private ComparatorFileNameLastDateASC comparator = new ComparatorFileNameLastDateASC();
 
     @Override
-    public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) throws ServiceNotSupportedException, ServiceInternalException {
+    public TradeResultSet get(DataSnapshot snapshot, DataCriteriaTrade criteria) throws ServiceNotSupportedException, ServiceInternalException {
 
         checkIfSupported(snapshot);
         File tradeSrcFolder = getTradeSrcFolder(appConfig, KW_FOLDER_NAME_TRADE);
@@ -74,8 +75,7 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
         logger.info(LOG_DEFAULT, "trade count", iTradeList.size());
 
         List<ITrade> filterTradeList = filter(iTradeList, criteria);
-
-        return filterTradeList;
+        return new TradeResultSet(filterTradeList);
     }
 
     private List<ITrade> filter(List<ITrade> iTradeList, DataCriteriaTrade criteria) {

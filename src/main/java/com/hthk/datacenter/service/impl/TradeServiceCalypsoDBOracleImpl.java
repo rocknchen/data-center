@@ -1,6 +1,7 @@
 package com.hthk.datacenter.service.impl;
 
 import com.hthk.calypsox.model.trade.ITrade;
+import com.hthk.calypsox.model.trade.TradeResultSet;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
@@ -25,7 +26,7 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 public class TradeServiceCalypsoDBOracleImpl implements TradeService {
 
     @Override
-    public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) {
+    public TradeResultSet get(DataSnapshot snapshot, DataCriteriaTrade criteria) {
 
         Trade trade1 = new Trade();
         Trade trade2 = new Trade();
