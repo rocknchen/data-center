@@ -11,6 +11,9 @@ dataSource:
 
 logging:
   config: classpath:fintech/logback.xml
+  controller:
+    exception:
+      printStack: true
 
 configs:
   taskConfigFolder: task
