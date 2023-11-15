@@ -1,15 +1,12 @@
 package com.hthk.datacenter.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.hthk.fintech.component.AbstractComponent;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.software.app.AppVersion;
 import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
 import com.hthk.fintech.utils.HttpResponseUtils;
-import com.hthk.fintech.serialize.HttpRequestDeserializer;
-import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +32,13 @@ public class DataCenterController extends AbstractComponent {
     }
 
     @PostMapping(value = "/data")
-    public <T extends IDataCriteria> HttpResponse<?> post(
+    public <T extends IDataCriteria, R> HttpResponse<?> post(
             @RequestBody HttpRequest<T> request
     ) throws JsonProcessingException {
 
         logger.info(LOG_WRAP, KW_HTTP_REQUEST, getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request));
-        return HttpResponseUtils.success(dqmService.get(request));
+        R result = dqmService.process(request);
+        return HttpResponseUtils.success(result);
     }
 
 }
