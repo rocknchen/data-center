@@ -7,7 +7,7 @@ app:
 
 dataSource:
   type: FOLDER
-  path: C:/Rock/Datas/Calypso/Persistence/dataCenter
+  path: C:/Rock/Datas/Calypso/Persistence/dataCenter1
 
 logging:
   config: classpath:fintech/logback.xml

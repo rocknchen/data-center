@@ -18,8 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.hthk.fintech.config.FintechStaticData.KW_HTTP_REQUEST;
-import static com.hthk.fintech.config.FintechStaticData.LOG_WRAP;
+import java.io.File;
+
+import static com.hthk.fintech.config.FintechStaticData.*;
 
 /**
  * @Author: Rock CHEN
@@ -57,9 +58,16 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
         switch (dataSourceType) {
             case FOLDER:
                 String srcPath = appConfig.getDataSourcePath();
+                check(srcPath);
                 return new DataSourceFolder(srcPath);
             default:
                 throw new ServiceInvalidException();
+        }
+    }
+
+    private void check(String srcPath) throws ServiceInvalidException {
+        if (!new File(srcPath).exists()) {
+            throw new ServiceInvalidException();
         }
     }
 
