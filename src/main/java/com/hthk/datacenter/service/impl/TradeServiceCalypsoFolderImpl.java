@@ -3,14 +3,17 @@ package com.hthk.datacenter.service.impl;
 import com.hthk.calypsox.model.trade.ITrade;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
+import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
+import com.hthk.fintech.model.data.datacenter.query.SnapshotImageEnum;
 import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.List;
 
+import static com.hthk.fintech.config.DataCenterStaticData.WHITE_LIST_FILE_SUPPORTED_IMAGE_TYPE;
 import static com.hthk.fintech.model.data.datacenter.query.EntityTypeEnum.TRADE;
 import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 
@@ -23,9 +26,13 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 public class TradeServiceCalypsoFolderImpl implements TradeService {
 
     @Override
-    public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) {
+    public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) throws ServiceNotSupportedException {
+
+        checkIfSupported(snapshot);
         return null;
+
     }
+
 
     /**
      * TODO
@@ -43,5 +50,14 @@ public class TradeServiceCalypsoFolderImpl implements TradeService {
         return null;
     }
 
+    private void checkIfSupported(DataSnapshot snapshot) throws ServiceNotSupportedException {
+        SnapshotImageEnum image = snapshot.getImage();
+        boolean isSupported = WHITE_LIST_FILE_SUPPORTED_IMAGE_TYPE.contains(image);
+        boolean notSupported = !isSupported;
+        if (notSupported) {
+            String errMsg = String.format("Calypso Trade using File as DataCenter, not support %s. Supported white list %s", image, WHITE_LIST_FILE_SUPPORTED_IMAGE_TYPE);
+            throw new ServiceNotSupportedException(errMsg);
+        }
+    }
 
 }

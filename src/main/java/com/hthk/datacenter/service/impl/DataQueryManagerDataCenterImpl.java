@@ -3,6 +3,7 @@ package com.hthk.datacenter.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.config.AppConfig;
 import com.hthk.fintech.exception.ServiceInvalidException;
+import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.DataSourceDBOracle;
 import com.hthk.fintech.model.data.DataSourceFolder;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
@@ -41,7 +42,7 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
     private final static Logger logger = LoggerFactory.getLogger(DataQueryManagerDataCenterImpl.class);
 
     @Override
-    public <R> R process(HttpRequest<? extends IDataCriteria> request) throws ServiceInvalidException, JsonProcessingException {
+    public <R> R process(HttpRequest<? extends IDataCriteria> request) throws ServiceInvalidException, JsonProcessingException, ServiceNotSupportedException {
 
         IDataSource dataSource = getSource(appConfig, request);
         logger.info(LOG_WRAP, "dataSource", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataSource));
@@ -57,9 +58,7 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
 
         DataSnapshot snapshot = dataQueryRequest.getSnapshot();
         IDataCriteria dataCriteria = dataQueryRequest.getCriteria();
-//        Object result = service.get(dataSource, request);
-//        return result;
-        return null;
+        return (R) dqService.get(snapshot, dataCriteria);
     }
 
     private DataQueryService getService(ApplicationEnum appName, DataSourceTypeEnum dsType, EntityCriteria entityCriteria) {
