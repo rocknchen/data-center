@@ -2,6 +2,7 @@ package com.hthk.datacenter.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.component.AbstractComponent;
+import com.hthk.fintech.exception.ServiceInternalException;
 import com.hthk.fintech.exception.ServiceInvalidException;
 import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
@@ -36,7 +37,7 @@ public class DataCenterController extends AbstractComponent {
     @PostMapping(value = "/data")
     public <T extends IDataCriteria, R> HttpResponse<?> post(
             @RequestBody HttpRequest<T> request
-    ) throws JsonProcessingException, ServiceInvalidException, ServiceNotSupportedException {
+    ) throws JsonProcessingException, ServiceInvalidException, ServiceNotSupportedException, ServiceInternalException {
 
         logger.info(LOG_WRAP, KW_HTTP_REQUEST, getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request));
         R result = dqmService.process(request);
