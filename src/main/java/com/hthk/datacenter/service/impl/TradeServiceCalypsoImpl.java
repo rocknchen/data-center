@@ -1,9 +1,10 @@
 package com.hthk.datacenter.service.impl;
 
-import com.hthk.calypsox.model.trade.datacenter.TradeCriteriaCalypso;
-import com.hthk.datacenter.service.TradeServiceCalypso;
+import com.hthk.calypsox.model.trade.ITrade;
+import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.finance.Trade;
+import com.hthk.fintech.model.trade.datacenter.IDataCriteriaTrade;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  */
 @DataCriteria(sourceName = CALYPSO, entityType = TRADE)
 @Service
-public class TradeServiceCalypsoImpl implements TradeServiceCalypso {
+public class TradeServiceCalypsoImpl implements TradeService {
 
     @Override
-    public List<Trade> get(TradeCriteriaCalypso criteria) {
+    public List<ITrade> get(IDataCriteriaTrade criteria) {
 
         Trade trade1 = new Trade();
         Trade trade2 = new Trade();
@@ -30,7 +31,12 @@ public class TradeServiceCalypsoImpl implements TradeServiceCalypso {
         list.add(trade1);
         list.add(trade2);
         list.add(trade3);
-        return list;
+        return null;
+    }
+
+    @Override
+    public List<ITrade> upsert() {
+        return null;
     }
 
 }
