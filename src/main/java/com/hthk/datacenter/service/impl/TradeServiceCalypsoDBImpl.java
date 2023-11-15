@@ -5,6 +5,7 @@ import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
+import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.finance.Trade;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 public class TradeServiceCalypsoDBImpl implements TradeService<DataCriteriaTrade> {
 
     @Override
-    public List<ITrade> get(DataCriteriaTrade criteria) {
+    public Object get(DataSnapshot snapshot, IDataCriteria criteria) {
 
         Trade trade1 = new Trade();
         Trade trade2 = new Trade();
@@ -51,5 +52,6 @@ public class TradeServiceCalypsoDBImpl implements TradeService<DataCriteriaTrade
     public List<ITrade> upsert(DataSnapshot snapshot, List<ITrade> tradeList) {
         return null;
     }
+
 
 }

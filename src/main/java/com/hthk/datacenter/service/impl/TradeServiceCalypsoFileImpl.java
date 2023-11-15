@@ -5,6 +5,7 @@ import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
+import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.finance.Trade;
 import org.springframework.stereotype.Service;
 
@@ -23,22 +24,6 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
 @Service("tradeServiceCalypsoFile")
 public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTrade> {
 
-    @Override
-    public List<ITrade> get(DataCriteriaTrade criteria) {
-
-        /**
-         * Mock
-         */
-        Trade trade1 = new Trade();
-        Trade trade2 = new Trade();
-        Trade trade3 = new Trade();
-        List<Trade> list = new ArrayList<>();
-        list.add(trade1);
-        list.add(trade2);
-        list.add(trade3);
-        return null;
-    }
-
     /**
      * TODO
      */
@@ -52,6 +37,11 @@ public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTra
      */
     @Override
     public List<ITrade> upsert(DataSnapshot snapshot, List<ITrade> tradeList) {
+        return null;
+    }
+
+    @Override
+    public Object get(DataSnapshot snapshot, IDataCriteria criteria) {
         return null;
     }
 

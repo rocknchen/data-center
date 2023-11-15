@@ -8,6 +8,9 @@ import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.DataSourceFolder;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.IDataSource;
+import com.hthk.fintech.model.data.datacenter.query.DataQueryRequest;
+import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
+import com.hthk.fintech.model.data.datacenter.query.EntityCriteria;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.serialize.HttpRequestDeserializer;
@@ -34,16 +37,18 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
     private final static Logger logger = LoggerFactory.getLogger(DataQueryManagerDataCenterImpl.class);
 
     @Override
-    public <R> R process(HttpRequest<? extends IDataCriteria> request) throws ServiceInvalidException {
+    public <R> R process(HttpRequest<? extends IDataCriteria> request) throws ServiceInvalidException, JsonProcessingException {
 
         IDataSource dataSource = getSource(appConfig, request);
-        try {
-            logger.info(LOG_WRAP, "dataSource", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataSource));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-//        logger.info("dataSource: {}", dataSource);
-//        DataService service = getService(dataSource);
+        logger.info(LOG_WRAP, "dataSource", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataSource));
+
+        DataSourceTypeEnum dsType = dataSource.getType();
+        DataQueryRequest dataQueryRequest = request.getData();
+        EntityCriteria entityCriteria = dataQueryRequest.getEntity();
+//        DataService service = getService(dsType, entityCriteria);
+
+        DataSnapshot snapshot = dataQueryRequest.getSnapshot();
+        IDataCriteria dataCriteria = dataQueryRequest.getCriteria();
 //        Object result = service.get(dataSource, request);
 //        return result;
         return null;
@@ -67,7 +72,7 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
 
     private void check(String srcPath) throws ServiceInvalidException {
         if (!new File(srcPath).exists()) {
-            throw new ServiceInvalidException();
+            throw new ServiceInvalidException("src path not exists: " + srcPath);
         }
     }
 
