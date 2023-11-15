@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="data-center" />
-        <module name="fintech-core" />
         <module name="fintech-model" />
+        <module name="calypso-model" />
+        <module name="fintech-core" />
       </profile>
     </annotationProcessing>
   </component>

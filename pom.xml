@@ -30,6 +30,7 @@
 
         <reflections.version>0.10.2</reflections.version>
         <fintech-core.version>1.0.0</fintech-core.version>
+        <calypso-model.version>1.0.0</calypso-model.version>
 
     </properties>
 
@@ -39,6 +40,11 @@
             <groupId>com.hthk</groupId>
             <artifactId>fintech-core</artifactId>
             <version>${fintech-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hthk</groupId>
+            <artifactId>calypso-model</artifactId>
+            <version>${calypso-model.version}</version>
         </dependency>
 
         <dependency>
