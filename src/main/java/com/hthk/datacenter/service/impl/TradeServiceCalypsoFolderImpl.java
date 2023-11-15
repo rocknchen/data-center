@@ -3,15 +3,12 @@ package com.hthk.datacenter.service.impl;
 import com.hthk.calypsox.model.trade.ITrade;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
-import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
+import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
-import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
-import com.hthk.fintech.model.finance.Trade;
-import com.hthk.fintech.model.trade.datacenter.IDataCriteriaTrade;
+import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.hthk.fintech.model.data.datacenter.query.EntityTypeEnum.TRADE;
@@ -21,9 +18,9 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  * @Author: Rock CHEN
  * @Date: 2023/11/15 13:26
  */
-@DataCriteria(sourceName = CALYPSO, entityType = TRADE)
-@Service("tradeServiceCalypsoFile")
-public class TradeServiceCalypsoFileImpl implements TradeService {
+@DataCenterService(sourceName = CALYPSO, sourceType = DataSourceTypeEnum.FOLDER, entityType = TRADE)
+@Service("tradeServiceCalypsoFolder")
+public class TradeServiceCalypsoFolderImpl implements TradeService {
 
     @Override
     public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) {

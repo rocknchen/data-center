@@ -2,9 +2,7 @@ package com.hthk.datacenter.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.config.AppConfig;
-import com.hthk.fintech.exception.ServiceException;
 import com.hthk.fintech.exception.ServiceInvalidException;
-import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.DataSourceFolder;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.IDataSource;
@@ -12,16 +10,21 @@ import com.hthk.fintech.model.data.datacenter.query.DataQueryRequest;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
 import com.hthk.fintech.model.data.datacenter.query.EntityCriteria;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
+import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
+import com.hthk.fintech.model.software.app.Application;
+import com.hthk.fintech.model.software.app.ApplicationEnum;
 import com.hthk.fintech.model.web.http.HttpRequest;
-import com.hthk.fintech.serialize.HttpRequestDeserializer;
 import com.hthk.fintech.service.DataQueryManagerService;
+import com.hthk.fintech.service.DataQueryService;
 import com.hthk.fintech.service.basic.AbstractService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.hthk.fintech.config.FintechStaticData.*;
 
@@ -42,16 +45,39 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
         IDataSource dataSource = getSource(appConfig, request);
         logger.info(LOG_WRAP, "dataSource", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataSource));
 
+        Application app = request.getSource();
+        ApplicationEnum appName = app.getName();
+
         DataSourceTypeEnum dsType = dataSource.getType();
         DataQueryRequest dataQueryRequest = request.getData();
         EntityCriteria entityCriteria = dataQueryRequest.getEntity();
-//        DataService service = getService(dsType, entityCriteria);
+        DataQueryService dqService = getService(appName, dsType, entityCriteria);
+        logger.info(LOG_DEFAULT, "dataQueryService", dqService.getClass().getSimpleName());
 
         DataSnapshot snapshot = dataQueryRequest.getSnapshot();
         IDataCriteria dataCriteria = dataQueryRequest.getCriteria();
 //        Object result = service.get(dataSource, request);
 //        return result;
         return null;
+    }
+
+    private DataQueryService getService(ApplicationEnum appName, DataSourceTypeEnum dsType, EntityCriteria entityCriteria) {
+
+        Map<String, DataQueryService> map = appContext.getBeansOfType(DataQueryService.class);
+        List<DataQueryService> serviceList = map.values().stream().collect(Collectors.toList());
+        List<DataQueryService> activeServiceList = serviceList.stream()
+                .filter(t -> t.getClass().getAnnotation(DataCenterService.class) != null).collect(Collectors.toList());
+        List<DataQueryService> validServiceList = activeServiceList.stream().filter(t -> isAccept(t, appName, dsType, entityCriteria)).collect(Collectors.toList());
+        return validServiceList.get(0);
+    }
+
+    private boolean isAccept(DataQueryService service, ApplicationEnum appName, DataSourceTypeEnum dsType, EntityCriteria entityCriteria) {
+        DataCenterService anno = service.getClass().getAnnotation(DataCenterService.class);
+        boolean isAccept =
+                anno.sourceName().equals(appName)
+                        && anno.sourceType().equals(dsType)
+                        && anno.entityType().equals(entityCriteria.getType());
+        return isAccept;
     }
 
     private IDataSource getSource(

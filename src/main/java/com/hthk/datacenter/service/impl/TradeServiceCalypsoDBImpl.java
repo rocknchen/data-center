@@ -3,9 +3,11 @@ package com.hthk.datacenter.service.impl;
 import com.hthk.calypsox.model.trade.ITrade;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
+import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
+import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import com.hthk.fintech.model.finance.Trade;
 import com.hthk.fintech.model.trade.datacenter.IDataCriteriaTrade;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  * @Author: Rock CHEN
  * @Date: 2023/11/14 21:59
  */
-@DataCriteria(sourceName = CALYPSO, entityType = TRADE)
+@DataCenterService(sourceName = CALYPSO, sourceType = DataSourceTypeEnum.DATABASE_ORACLE, entityType = TRADE)
 @Service("tradeServiceCalypso")
 public class TradeServiceCalypsoDBImpl implements TradeService {
 
