@@ -3,6 +3,7 @@ package com.hthk.datacenter.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hthk.fintech.config.AppConfig;
 import com.hthk.fintech.exception.ServiceInvalidException;
+import com.hthk.fintech.model.data.DataSourceDBOracle;
 import com.hthk.fintech.model.data.DataSourceFolder;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
 import com.hthk.fintech.model.data.IDataSource;
@@ -52,7 +53,7 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
         DataQueryRequest dataQueryRequest = request.getData();
         EntityCriteria entityCriteria = dataQueryRequest.getEntity();
         DataQueryService dqService = getService(appName, dsType, entityCriteria);
-        logger.info(LOG_DEFAULT, "dataQueryService", dqService.getClass().getSimpleName());
+        logger.info(LOG_DEFAULT, "dataQueryService", dqService.getClass().getAnnotation(Service.class).value());
 
         DataSnapshot snapshot = dataQueryRequest.getSnapshot();
         IDataCriteria dataCriteria = dataQueryRequest.getCriteria();
@@ -91,6 +92,8 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
                 String srcPath = appConfig.getDataSourcePath();
                 check(srcPath);
                 return new DataSourceFolder(srcPath);
+            case DATABASE_ORACLE:
+                return new DataSourceDBOracle();
             default:
                 throw new ServiceInvalidException();
         }

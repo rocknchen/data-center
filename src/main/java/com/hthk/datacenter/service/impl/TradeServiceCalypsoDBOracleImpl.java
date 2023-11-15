@@ -4,12 +4,9 @@ import com.hthk.calypsox.model.trade.ITrade;
 import com.hthk.calypsox.model.trade.datacenter.DataCriteriaTrade;
 import com.hthk.datacenter.service.TradeService;
 import com.hthk.fintech.model.data.DataSourceTypeEnum;
-import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
-import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import com.hthk.fintech.model.finance.Trade;
-import com.hthk.fintech.model.trade.datacenter.IDataCriteriaTrade;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,8 +21,8 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  * @Date: 2023/11/14 21:59
  */
 @DataCenterService(sourceName = CALYPSO, sourceType = DataSourceTypeEnum.DATABASE_ORACLE, entityType = TRADE)
-@Service("tradeServiceCalypso")
-public class TradeServiceCalypsoDBImpl implements TradeService {
+@Service("tradeServiceCalypsoDBOracle")
+public class TradeServiceCalypsoDBOracleImpl implements TradeService {
 
     @Override
     public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) {
