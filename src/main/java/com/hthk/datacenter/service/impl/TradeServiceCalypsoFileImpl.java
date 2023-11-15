@@ -7,6 +7,7 @@ import com.hthk.fintech.model.data.datacenter.query.DataCriteria;
 import com.hthk.fintech.model.data.datacenter.query.DataSnapshot;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
 import com.hthk.fintech.model.finance.Trade;
+import com.hthk.fintech.model.trade.datacenter.IDataCriteriaTrade;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,7 +23,12 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  */
 @DataCriteria(sourceName = CALYPSO, entityType = TRADE)
 @Service("tradeServiceCalypsoFile")
-public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTrade> {
+public class TradeServiceCalypsoFileImpl implements TradeService {
+
+    @Override
+    public List<ITrade> get(DataSnapshot snapshot, DataCriteriaTrade criteria) {
+        return null;
+    }
 
     /**
      * TODO
@@ -40,9 +46,5 @@ public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTra
         return null;
     }
 
-    @Override
-    public Object get(DataSnapshot snapshot, IDataCriteria criteria) {
-        return null;
-    }
 
 }
