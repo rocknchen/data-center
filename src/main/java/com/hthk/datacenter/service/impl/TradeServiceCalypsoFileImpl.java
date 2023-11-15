@@ -26,6 +26,9 @@ public class TradeServiceCalypsoFileImpl implements TradeService<DataCriteriaTra
     @Override
     public List<ITrade> get(DataCriteriaTrade criteria) {
 
+        /**
+         * Mock
+         */
         Trade trade1 = new Trade();
         Trade trade2 = new Trade();
         Trade trade3 = new Trade();

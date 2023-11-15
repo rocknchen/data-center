@@ -21,7 +21,7 @@ import static com.hthk.fintech.model.software.app.ApplicationEnum.CALYPSO;
  */
 @DataCriteria(sourceName = CALYPSO, entityType = TRADE)
 @Service("tradeServiceCalypso")
-public class TradeServiceCalypsoImpl implements TradeService<DataCriteriaTrade> {
+public class TradeServiceCalypsoDBImpl implements TradeService<DataCriteriaTrade> {
 
     @Override
     public List<ITrade> get(DataCriteriaTrade criteria) {
