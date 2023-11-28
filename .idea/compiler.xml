@@ -7,8 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="data-center" />
+        <module name="task-manager" />
+        <module name="calypso-agent-service" />
         <module name="fintech-model" />
         <module name="calypso-model" />
+        <module name="calypso-data-process-service" />
         <module name="fintech-core" />
       </profile>
     </annotationProcessing>
