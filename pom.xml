@@ -29,7 +29,7 @@
         <aspectj.version>1.8.9</aspectj.version>
 
         <reflections.version>0.10.2</reflections.version>
-        <fintech-core.version>1.0.0</fintech-core.version>
+        <fintech-web.version>1.0.0</fintech-web.version>
         <calypso-model.version>1.0.0</calypso-model.version>
 
     </properties>
@@ -38,8 +38,8 @@
 
         <dependency>
             <groupId>com.hthk</groupId>
-            <artifactId>fintech-core</artifactId>
-            <version>${fintech-core.version}</version>
+            <artifactId>fintech-web</artifactId>
+            <version>${fintech-web.version}</version>
         </dependency>
         <dependency>
             <groupId>com.hthk</groupId>

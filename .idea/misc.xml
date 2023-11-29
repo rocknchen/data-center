@@ -11,6 +11,9 @@
         <option value="$PROJECT_DIR$/../task-manager/pom.xml" />
         <option value="$PROJECT_DIR$/../calypso-agent-service/pom.xml" />
         <option value="$PROJECT_DIR$/../calypso-data-process-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../fintech-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../agent-service-calypso-v17/pom.xml" />
+        <option value="$PROJECT_DIR$/../fintech-web/pom.xml" />
       </list>
     </option>
   </component>

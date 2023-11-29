@@ -11,8 +11,11 @@
         <module name="calypso-agent-service" />
         <module name="fintech-model" />
         <module name="calypso-model" />
+        <module name="agent-service-calypso-v17" />
+        <module name="fintech-web" />
         <module name="calypso-data-process-service" />
         <module name="fintech-core" />
+        <module name="fintech-service" />
       </profile>
     </annotationProcessing>
   </component>
