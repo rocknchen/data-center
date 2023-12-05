@@ -4,8 +4,8 @@ server:
 
 persistent:
   type: FOLDER
-  srcPath: C:/Rock/Datas/Calypso/Persistence
+  srcPath: C:/Rock/Datas/DataCenter/apps/Calypso/FireFight_129
 
 local:
   file:
-    root: C:/Rock/Datas/Calypso/Persistence/dataCenter
+    root: C:/Rock/Datas/DataCenter/apps/Calypso/FireFight_129

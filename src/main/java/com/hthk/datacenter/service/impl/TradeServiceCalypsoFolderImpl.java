@@ -60,7 +60,7 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
         File tradeSrcFolder = getTradeSrcFolder(appConfig, KW_FOLDER_NAME_TRADE);
         logger.info(LOG_DEFAULT, "src folder", tradeSrcFolder);
 
-        String fileNamePrefix = getFileNamePrefix(KW_DATACENTER_FILE_NAME_PREFIX, KW_FILE_NAME_TRADE);
+        String fileNamePrefix = KW_FILE_NAME_TRADE;
         logger.info(LOG_DEFAULT, "fileNamePrefix", fileNamePrefix);
 
         List<File> srcFileList = getSrcFileList(tradeSrcFolder, fileNamePrefix);
@@ -186,12 +186,9 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
         }
     }
 
-    private String getFileNamePrefix(String kwDatacenterFileNamePrefix, String kwFolderNameTrade) {
-        return kwDatacenterFileNamePrefix + "_" + kwFolderNameTrade;
-    }
-
     private void log(List<File> srcFileList) {
         if (CollectionUtils.isEmpty(srcFileList)) {
+            logger.info("src file list empty");
             return;
         }
         String log = srcFileList.stream().map(t -> t.getName()).collect(Collectors.joining("\r\n"));

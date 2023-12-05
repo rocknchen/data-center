@@ -7,7 +7,7 @@ app:
 
 dataSource:
   type: FOLDER
-  path: C:/Rock/Datas/Calypso/Persistence/dataCenter
+  path: C:/Rock/Datas/DataCenter/apps/Calypso/FireFight_129
 
 logging:
   config: classpath:fintech/logback.xml
@@ -28,4 +28,4 @@ event:
 
 local:
   file:
-    root: C:/Rock/Datas/Calypso/Persistence/dataCenter
+    root: C:/Rock/Datas/DataCenter/apps/Calypso/FireFight_129
