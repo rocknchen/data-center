@@ -115,7 +115,8 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
         Map<LocalDate, List<ITrade>> tradeMap = new HashMap<>();
         for (int i = 0; i < sortedByDateList.size(); i++) {
             File file = sortedByDateList.get(i);
-            LocalDate date = FileUtils.getFileDate(file, BASIC_DATE_FORMAT);
+            LocalDateTime dateTime = FileUtils.getFileDateTime(file, BASIC_FILE_NAME_DATE_TIME_FORMAT);
+            LocalDate date = dateTime.toLocalDate();
             tradeMap.put(date, loadTrade(file));
         }
 
@@ -158,8 +159,11 @@ public class TradeServiceCalypsoFolderImpl extends AbstractService implements Tr
     private List<File> getSrcFileList(File tradeSrcFolder, String fileNamePrefix) {
 
         List<String> subFileList = FileUtils.getAllSubFileList(tradeSrcFolder);
-        List<String> filterList = filterNoDate(subFileList);
-        return filterList.stream().map(t -> new File(t)).filter(t -> t.getName().startsWith(fileNamePrefix)).collect(Collectors.toList());
+//        List<String> filterList = filterNoDate(subFileList);
+        List<String> filterList = subFileList;
+        List<File> srcFileList = filterList.stream().map(t -> new File(t)).filter(t -> t.getName().startsWith(fileNamePrefix)).collect(Collectors.toList());
+        logger.info(LOG_WRAP, "srcFileList", srcFileList);
+        return srcFileList;
     }
 
     private List<String> filterNoDate(List<String> subFileList) {
