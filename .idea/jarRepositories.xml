@@ -16,5 +16,10 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="calypso.v17.1.0.0" />
+      <option name="name" value="calypso.v17.1.0.0" />
+      <option name="url" value="/calypso_libs" />
+    </remote-repository>
   </component>
 </project>

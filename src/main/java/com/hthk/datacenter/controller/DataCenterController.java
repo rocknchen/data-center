@@ -1,20 +1,23 @@
 package com.hthk.datacenter.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.hthk.fintech.component.AbstractComponent;
+import com.hthk.fintech.controller.basic.AbstractController;
 import com.hthk.fintech.exception.ServiceInternalException;
 import com.hthk.fintech.exception.ServiceInvalidException;
 import com.hthk.fintech.exception.ServiceNotSupportedException;
 import com.hthk.fintech.model.data.datacenter.query.IDataCriteria;
-import com.hthk.fintech.model.software.app.AppVersion;
 import com.hthk.fintech.model.web.http.HttpRequest;
 import com.hthk.fintech.model.web.http.HttpResponse;
 import com.hthk.fintech.utils.HttpResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import static com.hthk.fintech.config.FintechStaticData.*;
+import static com.hthk.fintech.config.FintechStaticData.KW_HTTP_REQUEST;
+import static com.hthk.fintech.config.FintechStaticData.LOG_WRAP;
 
 /**
  * @Author: Rock CHEN
@@ -22,17 +25,9 @@ import static com.hthk.fintech.config.FintechStaticData.*;
  */
 @RestController
 @RequestMapping("/")
-public class DataCenterController extends AbstractComponent {
+public class DataCenterController extends AbstractController {
 
     private final static Logger logger = LoggerFactory.getLogger(DataCenterController.class);
-
-    @GetMapping(value = "/appVersion")
-    public HttpResponse<?> getAppVersion() throws JsonProcessingException {
-
-        AppVersion appVersion = appInfoService.getVersion();
-        logger.info(LOG_WRAP, KW_APP_VERSION, getDefaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(appVersion));
-        return HttpResponseUtils.success(appVersion);
-    }
 
     @PostMapping(value = "/data")
     public <T extends IDataCriteria, R> HttpResponse<?> post(
