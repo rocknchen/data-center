@@ -17,6 +17,7 @@ import com.hthk.fintech.model.data.datacenter.service.DataCenterService;
 import com.hthk.fintech.model.software.app.Application;
 import com.hthk.fintech.model.software.app.ApplicationEnum;
 import com.hthk.fintech.model.web.http.HttpRequest;
+import com.hthk.fintech.model.web.http.HttpServiceRequest;
 import com.hthk.fintech.service.DataQueryManagerService;
 import com.hthk.fintech.service.DataQueryService;
 import com.hthk.fintech.service.basic.AbstractService;
@@ -48,11 +49,11 @@ public class DataQueryManagerDataCenterImpl extends AbstractService
         IDataSource dataSource = getSource(appConfig, request);
         logger.info(LOG_WRAP, "dataSource", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataSource));
 
-        Application app = request.getSource();
+        Application app = null;// request.getSource();
         ApplicationEnum appName = app.getName();
 
         DataSourceTypeEnum dsType = dataSource.getType();
-        DataQueryRequest dataQueryRequest = request.getData();
+        DataQueryRequest dataQueryRequest = null;// request.getData();
         EntityCriteria entityCriteria = dataQueryRequest.getEntity();
         DataQueryService dqService = getService(appName, dsType, entityCriteria);
         logger.info(LOG_DEFAULT, "dataQueryService", dqService.getClass().getAnnotation(Service.class).value());
