@@ -3,8 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/../agent-service-calypso-v17/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../agent-service-calypso-v17/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../calypso-agent-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../calypso-agent-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../calypso-data-process-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../calypso-data-process-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../calypso-model/src/main/java" charset="UTF-8" />

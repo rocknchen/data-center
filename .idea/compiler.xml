@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="data-center" />
         <module name="task-manager" />
-        <module name="calypso-agent-service" />
         <module name="fintech-model" />
         <module name="calypso-model" />
         <module name="agent-service-calypso-v17" />
@@ -18,5 +17,8 @@
         <module name="fintech-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="calypso-agent-service" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
